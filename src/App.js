@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-
+import {Button} from 'antd-mobile'
+import { addGUN } from './index.redux.js';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+  }
   render() {
+    const store = this.props.store;
+    const num = store.getState();
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>现在有机枪{num}把</h1>
+        <Button type="primary" onClick={()=>store.dispatch(addGUN())}>申请武器</Button>
       </div>
     );
   }
