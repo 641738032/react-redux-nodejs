@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { counter, addGun, removeGun, addGunAsync } from "./index.redux.js";
 import thunk from 'redux-thunk';
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Link} from "react-router-dom"
+import { BrowserRouter, Route, Link, Redirect, Switch } from "react-router-dom"
 const store = createStore(counter,compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : ()=>{}
@@ -18,6 +18,27 @@ function Erying () {
 function QiBingLian () {
     return (<h2>骑兵连</h2>)
 }
+class Test extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+
+        }
+    }
+    render () {
+        console.log(this.props.match.params.location);
+        return (
+            <h2>测试组件 {this.props.match.params.location}</h2>
+        )
+    }
+}
+// 登录
+// 没有登录信息 统一跳转login
+// 页面 导航+显示+注销
+// 一营
+// 二营
+// 骑兵连
+// reudx+router
 ReactDOM.render(
     (
     // Provider 放在最外层 传入store
@@ -26,7 +47,7 @@ ReactDOM.render(
             <div>
                 <ul>
                     <li>
-                        <Link to="/">一营</Link>
+                        <Link to="/yiying">一营</Link>
                     </li>
                     <li>
                         <Link to="/erying">二营</Link>
@@ -35,9 +56,14 @@ ReactDOM.render(
                         <Link to="/qibinglian">骑兵连</Link>
                     </li>
                 </ul>
-                <Route path="/"  exact component={App}/>
-                <Route path="/erying" component={Erying}/>
-                <Route path="/qibinglian" component={QiBingLian}/>
+                <Switch>
+                    {/* 只渲染匹配的第一个路由 */}
+                    <Route path="/yiying"  exact component={App}/>
+                    <Route path="/erying" exact component={Erying}/>
+                    <Route path="/qibinglian" exact component={QiBingLian}/>
+                    <Route path="/:location"  component={Test}/>
+                </Switch>
+                {/* <Redirect to="/"></Redirect> */}
             </div>
         </BrowserRouter>
         {/* <App /> */}
