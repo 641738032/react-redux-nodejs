@@ -6,7 +6,8 @@ const ADD_GUN = "加机关枪"
 const REMOVE_GUN = "减机关枪"
 
 // reducer
-export function counter(state = 10, action) {
+export default function counter(state = 10, action) {
+    console.log("counter : ", state);
     switch (action.type) {
         case ADD_GUN:
             return state + 1;
